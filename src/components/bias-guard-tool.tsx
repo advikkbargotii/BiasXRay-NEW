@@ -6,7 +6,7 @@ import type { SuggestUnbiasedRewritesOutput } from '@/ai/flows/bias-rewriting';
 import { detectBiasInText } from '@/ai/flows/bias-detection';
 import { suggestUnbiasedRewrites } from '@/ai/flows/bias-rewriting';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AlertTriangle, CheckCircle, Loader2, Sparkles } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Loader2, Sparkles, Brain, Scale } from 'lucide-react';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -107,17 +107,17 @@ export function BiasGuardTool() {
       setDetectionResults(result);
       if (!result.biasDetections || result.biasDetections.length === 0) {
         toast({
-          title: "No Bias Detected",
-          description: "The provided text appears to be free of common biases.",
+          title: "Analysis Complete",
+          description: "The provided text was analyzed. Check scores for details.",
           variant: "default",
           action: <CheckCircle className="text-green-500" />,
         });
       }
     } catch (error) {
-      console.error("Bias detection failed:", error);
+      console.error("Analysis failed:", error);
       toast({
         title: "Error",
-        description: "Failed to analyze text for bias. Please try again.",
+        description: "Failed to analyze text. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -157,9 +157,9 @@ export function BiasGuardTool() {
     <div className="space-y-8">
       <Card className="shadow-lg">
         <CardHeader>
-          <CardTitle className="text-2xl">Analyze Text for Bias</CardTitle>
+          <CardTitle className="text-2xl">Analyze Text for Bias, Hallucination & Skew</CardTitle>
           <CardDescription>
-            Enter your text below to detect potential biases. BiasGuard will highlight problematic phrases and offer suggestions for more inclusive language.
+            Enter your text below. BiasGuard will highlight problematic phrases, assess for factual inaccuracies and ideological skew, and offer suggestions.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -191,8 +191,8 @@ export function BiasGuardTool() {
                   </>
                 ) : (
                   <>
-                    <AlertTriangle className="mr-2 h-4 w-4" />
-                    Detect Bias
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Analyze Text
                   </>
                 )}
               </Button>
@@ -212,23 +212,53 @@ export function BiasGuardTool() {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="text-xl">Analysis Results</CardTitle>
-            {detectionResults.overallBiasScore !== undefined && (
-                <div className="mt-2">
-                  <div className='flex justify-between items-center mb-1'>
-                    <span className="text-sm font-medium text-foreground">Overall Bias Score:</span>
-                    <span className={`text-sm font-bold ${detectionResults.overallBiasScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
-                        {(detectionResults.overallBiasScore * 100).toFixed(0)}%
-                    </span>
+            <div className="space-y-3 mt-2">
+              {detectionResults.overallBiasScore !== undefined && (
+                  <div className="mt-2">
+                    <div className='flex justify-between items-center mb-1'>
+                      <span className="text-sm font-medium text-foreground flex items-center"><AlertTriangle className="mr-2 h-4 w-4 text-yellow-500"/>Overall Bias Score:</span>
+                      <span className={`text-sm font-bold ${detectionResults.overallBiasScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
+                          {(detectionResults.overallBiasScore * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                    <Progress value={detectionResults.overallBiasScore * 100} className="w-full h-2" />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {detectionResults.overallBiasScore > 0.7 ? "High likelihood of bias." : detectionResults.overallBiasScore > 0.3 ? "Moderate likelihood of bias." : "Low likelihood of bias."}
+                    </p>
                   </div>
-                  <Progress value={detectionResults.overallBiasScore * 100} className="w-full h-2" />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {detectionResults.overallBiasScore > 0.7 ? "High likelihood of bias." : detectionResults.overallBiasScore > 0.3 ? "Moderate likelihood of bias." : "Low likelihood of bias."}
-                  </p>
-                </div>
-            )}
+              )}
+               {detectionResults.overallHallucinationScore !== undefined && (
+                  <div className="mt-2">
+                    <div className='flex justify-between items-center mb-1'>
+                      <span className="text-sm font-medium text-foreground flex items-center"><Brain className="mr-2 h-4 w-4 text-blue-500"/>Overall Hallucination Score:</span>
+                      <span className={`text-sm font-bold ${detectionResults.overallHallucinationScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
+                          {(detectionResults.overallHallucinationScore * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                    <Progress value={detectionResults.overallHallucinationScore * 100} className="w-full h-2" />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {detectionResults.overallHallucinationScore > 0.7 ? "High likelihood of hallucination." : detectionResults.overallHallucinationScore > 0.3 ? "Moderate likelihood of hallucination." : "Low likelihood of hallucination."}
+                    </p>
+                  </div>
+              )}
+              {detectionResults.overallIdeologicalSkewScore !== undefined && (
+                  <div className="mt-2">
+                    <div className='flex justify-between items-center mb-1'>
+                      <span className="text-sm font-medium text-foreground flex items-center"><Scale className="mr-2 h-4 w-4 text-purple-500"/>Overall Ideological Skew Score:</span>
+                      <span className={`text-sm font-bold ${detectionResults.overallIdeologicalSkewScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
+                          {(detectionResults.overallIdeologicalSkewScore * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                    <Progress value={detectionResults.overallIdeologicalSkewScore * 100} className="w-full h-2" />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {detectionResults.overallIdeologicalSkewScore > 0.7 ? "Significant ideological skew detected." : detectionResults.overallIdeologicalSkewScore > 0.3 ? "Moderate ideological skew detected." : "Minimal ideological skew detected."}
+                    </p>
+                  </div>
+              )}
+            </div>
           </CardHeader>
           <CardContent>
-            <h3 className="text-lg font-semibold mb-2">Interactive Text:</h3>
+            <h3 className="text-lg font-semibold mb-2 mt-4">Interactive Text (Highlight specific biases):</h3>
             {textSegments.length > 0 ? (
               <div className="p-4 border rounded-md bg-background leading-relaxed text-base whitespace-pre-wrap">
                 {textSegments.map((segment, index) =>
@@ -253,7 +283,7 @@ export function BiasGuardTool() {
                             <strong className="text-muted-foreground">Type:</strong> {segment.biasInfo.biasType}
                           </p>
                           <p>
-                            <strong className="text-muted-foreground">Confidence:</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}%
+                            <strong className="text-muted-foreground">Confidence (Bias):</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}%
                           </p>
                           <p>
                             <strong className="text-muted-foreground">Original Phrase:</strong> "{segment.biasInfo.biasedPhrase}"
@@ -261,6 +291,16 @@ export function BiasGuardTool() {
                           <p>
                             <strong className="text-muted-foreground">Initial Suggestion:</strong> "{segment.biasInfo.suggestedRewrite}"
                           </p>
+                          {segment.biasInfo.hallucinationScore !== undefined && (
+                            <p>
+                              <strong className="text-muted-foreground">Hallucination Score (Phrase):</strong> {(segment.biasInfo.hallucinationScore * 100).toFixed(0)}%
+                            </p>
+                          )}
+                          {segment.biasInfo.ideologicalSkewScore !== undefined && (
+                            <p>
+                              <strong className="text-muted-foreground">Ideological Skew Score (Phrase):</strong> {(segment.biasInfo.ideologicalSkewScore * 100).toFixed(0)}%
+                            </p>
+                          )}
                           <Separator />
                            <Button
                             onClick={() => handleRequestRewrite(segment.biasInfo!.biasedPhrase, segment.biasInfo!.biasType)}
@@ -289,7 +329,12 @@ export function BiasGuardTool() {
                 )}
               </div>
             ) : (
-              <p className="text-muted-foreground">No text to display or no biases found to highlight.</p>
+               detectionResults && detectionResults.biasDetections && detectionResults.biasDetections.length === 0 && (
+                 <p className="text-muted-foreground">No specific biased phrases found to highlight, but check overall scores above.</p>
+               )
+            )}
+            { detectionResults && (!detectionResults.biasDetections || detectionResults.biasDetections.length === 0) && (!form.getValues("text") || form.getValues("text").trim() === "") && (
+                 <p className="text-muted-foreground">Enter text above and click "Analyze Text" to see results.</p>
             )}
           </CardContent>
 
