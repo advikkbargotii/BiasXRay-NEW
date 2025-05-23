@@ -9,7 +9,7 @@ import { Toaster } from "@/components/ui/toaster";
 // No need to instantiate them like with next/font/google.
 
 export const metadata: Metadata = {
-  title: 'BiasGuard',
+  title: 'Bias X-Ray',
   description: 'Audit, Detect, and Fix AI Bias in text content.',
 };
 

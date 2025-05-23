@@ -1,6 +1,6 @@
 
 import { AppHeader } from '@/components/app-header';
-import { BiasGuardTool } from '@/components/bias-guard-tool';
+import { BiasGuardTool } from '@/components/bias-guard-tool'; // Note: Component name remains bias-guard-tool for now
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         <BiasGuardTool />
       </main>
       <footer className="py-6 text-center text-muted-foreground text-sm border-t border-border">
-        <p>&copy; {new Date().getFullYear()} BiasGuard. An open-source toolkit for ethical AI.</p>
+        <p>&copy; {new Date().getFullYear()} Bias X-Ray. An open-source toolkit for ethical AI.</p>
       </footer>
     </div>
   );

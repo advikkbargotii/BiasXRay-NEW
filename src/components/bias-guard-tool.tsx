@@ -81,7 +81,7 @@ function segmentText(originalText: string, detections: BiasDetectionResult[]): T
 }
 
 
-export function BiasGuardTool() {
+export function BiasGuardTool() { // Note: Component function name remains for now
   const [isLoadingDetection, setIsLoadingDetection] = useState(false);
   const [detectionResults, setDetectionResults] = useState<DetectBiasInTextOutput | null>(null);
   const [isLoadingRewrite, setIsLoadingRewrite] = useState(false);
@@ -159,7 +159,7 @@ export function BiasGuardTool() {
         <CardHeader>
           <CardTitle className="text-2xl">Analyze Text for Bias, Hallucination & Skew</CardTitle>
           <CardDescription>
-            Enter your text below. BiasGuard will highlight problematic phrases, assess for factual inaccuracies and ideological skew, and offer suggestions.
+            Enter your text below. Bias X-Ray will highlight problematic phrases, assess for factual inaccuracies and ideological skew, and offer suggestions.
           </CardDescription>
         </CardHeader>
         <CardContent>
