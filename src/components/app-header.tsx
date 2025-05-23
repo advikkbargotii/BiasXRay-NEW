@@ -1,10 +1,10 @@
 
-import { ShieldCheck, Search } from 'lucide-react'; // Changed ShieldCheck to Search for a more fitting icon
+import { Search } from 'lucide-react'; // Changed ShieldCheck to Search for a more fitting icon
 import type { SVGProps } from 'react';
 
 export function AppHeader() {
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-50">
+    <header className="border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center">
         <div className="flex items-center space-x-3">
           <Search className="h-8 w-8 text-primary" /> 
