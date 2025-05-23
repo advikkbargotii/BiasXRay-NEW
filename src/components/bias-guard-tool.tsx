@@ -155,7 +155,7 @@ export function BiasGuardTool() { // Note: Component function name remains for n
 
   return (
     <div className="space-y-8">
-      <Card className="shadow-lg rounded-[45%] opacity-65 bg-card">
+      <Card className="shadow-lg rounded-[30%] opacity-65 bg-card">
         <CardHeader>
           <CardTitle className="text-2xl">Analyze Text for Bias, Hallucination & Skew</CardTitle>
           <CardDescription>
@@ -209,7 +209,7 @@ export function BiasGuardTool() { // Note: Component function name remains for n
       )}
 
       {detectionResults && (
-        <Card className="shadow-lg rounded-[45%] opacity-65 bg-card">
+        <Card className="shadow-lg rounded-[30%] opacity-65 bg-card">
           <CardHeader>
             <CardTitle className="text-xl">Analysis Results</CardTitle>
             <div className="space-y-3 mt-2">
@@ -347,7 +347,7 @@ export function BiasGuardTool() { // Note: Component function name remains for n
 
           {currentRewriteData && activeRewriteRequest && (
             <CardFooter className="mt-4">
-              <Card className="w-full bg-card shadow-md rounded-[45%] opacity-65">
+              <Card className="w-full bg-card shadow-md rounded-[30%] opacity-65">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
