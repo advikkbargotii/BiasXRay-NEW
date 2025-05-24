@@ -6,7 +6,7 @@ export function AppHeader() {
     <header className="sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center">
         <div className="flex items-center space-x-3">
-          <ScanSearch className="h-8 w-8 text-primary" />
+          <ScanSearch className="h-8 w-8 text-foreground" />
           <h1 className="text-2xl font-semibold text-foreground">
             Bias X-Ray
           </h1>
