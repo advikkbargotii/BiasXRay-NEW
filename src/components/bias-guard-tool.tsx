@@ -257,7 +257,7 @@ export function BiasGuardTool() {
             </div>
           </CardHeader>
           <CardContent>
-            <h3 className="text-lg font-semibold mb-2 mt-4">Interactive Text (Highlight specific biases):</h3>
+            <h3 className="text-lg font-semibold mb-2 mt-4 text-card-foreground">Interactive Text (Highlight specific biases):</h3>
             {textSegments.length > 0 ? (
               <div className="p-4 border rounded-md bg-background leading-relaxed text-base whitespace-pre-wrap">
                 {textSegments.map((segment, index) =>
@@ -323,7 +323,7 @@ export function BiasGuardTool() {
                       </PopoverContent>
                     </Popover>
                   ) : (
-                    <span key={index}>{segment.text}</span>
+                    <span key={index} className="text-foreground">{segment.text}</span>
                   )
                 )}
               </div>
@@ -378,3 +378,4 @@ export function BiasGuardTool() {
     </div>
   );
 }
+
