@@ -157,8 +157,8 @@ export function BiasGuardTool() {
     <div className="space-y-8">
       <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
         <CardHeader>
-          <CardTitle className="text-2xl">Analyze Text for Bias, Hallucination & Skew</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl text-foreground">Analyze Text for Bias, Hallucination & Skew</CardTitle>
+          <CardDescription className="text-muted-foreground">
             <p className="mb-3">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
               factual inaccuracies (hallucinations), and ideological skew within your text.
@@ -237,7 +237,7 @@ export function BiasGuardTool() {
       {detectionResults && (
         <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
           <CardHeader>
-            <CardTitle className="text-xl">Analysis Results</CardTitle>
+            <CardTitle className="text-xl text-foreground">Analysis Results</CardTitle>
             <div className="space-y-3 mt-2">
               {detectionResults.overallBiasScore !== undefined && (
                   <div className="mt-2">
@@ -248,7 +248,7 @@ export function BiasGuardTool() {
                       </span>
                     </div>
                     <Progress value={detectionResults.overallBiasScore * 100} className="w-full h-2" />
-                    <p className="text-sm text-muted-foreground mt-1">
+                     <p className="text-sm text-muted-foreground mt-1">
                       {detectionResults.overallBiasScore > 0.7 ? "High likelihood of bias." : detectionResults.overallBiasScore > 0.3 ? "Moderate likelihood of bias." : "Low likelihood of bias."}
                     </p>
                   </div>
@@ -304,7 +304,7 @@ export function BiasGuardTool() {
                       </PopoverTrigger>
                       <PopoverContent className="w-80 shadow-xl">
                         <div className="space-y-3">
-                          <h4 className="font-semibold text-foreground">Bias Details</h4>
+                          <h4 className="font-semibold text-black">Bias Details</h4>
                           <p className="text-sm">
                             <strong className="text-muted-foreground">Type:</strong> {segment.biasInfo.biasType}
                           </p>
