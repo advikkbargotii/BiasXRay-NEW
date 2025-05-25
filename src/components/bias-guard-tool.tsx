@@ -84,9 +84,13 @@ function segmentText(originalText: string, detections: BiasDetectionResult[]): T
 export function BiasGuardTool() { 
   const [isLoadingDetection, setIsLoadingDetection] = useState(false);
   const [detectionResults, setDetectionResults] = useState<DetectBiasInTextOutput | null>(null);
+  
   const [isLoadingRewrite, setIsLoadingRewrite] = useState(false);
   const [currentRewriteData, setCurrentRewriteData] = useState<SuggestUnbiasedRewritesOutput | null>(null);
   const [activeRewriteRequest, setActiveRewriteRequest] = useState<{ phrase: string, biasType: string} | null>(null);
+
+  const [isLoadingFullRewrite, setIsLoadingFullRewrite] = useState(false);
+  const [fullRewriteData, setFullRewriteData] = useState<SuggestUnbiasedRewritesOutput | null>(null);
   
   const { toast } = useToast();
 
@@ -102,6 +106,7 @@ export function BiasGuardTool() {
     setDetectionResults(null);
     setCurrentRewriteData(null);
     setActiveRewriteRequest(null);
+    setFullRewriteData(null);
     try {
       const result = await detectBiasInText({ text: values.text });
       setDetectionResults(result);
@@ -129,8 +134,13 @@ export function BiasGuardTool() {
     setIsLoadingRewrite(true);
     setCurrentRewriteData(null);
     setActiveRewriteRequest({phrase, biasType});
+    setFullRewriteData(null); // Clear full rewrite if individual is requested
     try {
-      const result = await suggestUnbiasedRewrites({ biasedText: phrase, biasType: biasType });
+      const result = await suggestUnbiasedRewrites({ 
+        textToRewrite: phrase, 
+        biasType: biasType,
+        isFullTextRewrite: false,
+      });
       setCurrentRewriteData(result);
     } catch (error) {
       console.error("Bias rewriting failed:", error);
@@ -143,6 +153,48 @@ export function BiasGuardTool() {
       setIsLoadingRewrite(false);
     }
   }, [toast]);
+
+  const handleRequestFullRewrite = async () => {
+    if (!detectionResults || !form.getValues("text")) {
+      toast({
+        title: "Error",
+        description: "Original text or analysis results are missing.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoadingFullRewrite(true);
+    setFullRewriteData(null);
+    setCurrentRewriteData(null); // Clear individual rewrite if full is requested
+    setActiveRewriteRequest(null);
+
+    let summary = "";
+    if (detectionResults.biasDetections.length > 0) {
+      const types = Array.from(new Set(detectionResults.biasDetections.map(d => d.biasType))).join(', ');
+      summary = `Detected phrase-specific issues include: ${types}. `;
+    }
+    summary += `Overall scores: Bias ${(detectionResults.overallBiasScore * 100).toFixed(0)}%, Hallucination ${(detectionResults.overallHallucinationScore * 100).toFixed(0)}%, Ideological Skew ${(detectionResults.overallIdeologicalSkewScore * 100).toFixed(0)}%.`;
+    
+    try {
+      const result = await suggestUnbiasedRewrites({
+        textToRewrite: form.getValues("text"),
+        isFullTextRewrite: true,
+        detectedIssuesSummary: summary,
+      });
+      setFullRewriteData(result);
+    } catch (error) {
+      console.error("Full text rewriting failed:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate full text rewrite. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingFullRewrite(false);
+    }
+  };
+
 
   const textSegments = detectionResults ? segmentText(form.getValues("text"), detectionResults.biasDetections) : [];
   
@@ -158,7 +210,7 @@ export function BiasGuardTool() {
       <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
         <CardHeader>
           <CardTitle className="text-2xl text-neutral-300">Analyze Text for Bias, Hallucination & Skew</CardTitle>
-          <CardDescription className="text-neutral-500">
+           <CardDescription className="text-neutral-500">
             <p className="mb-3">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
               factual inaccuracies (hallucinations), and ideological skew within your text.
@@ -184,7 +236,7 @@ export function BiasGuardTool() {
                 </ul>
               </li>
               <li className="text-neutral-500">
-                <strong className="text-neutral-500">Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover to receive a more detailed, AI-generated unbiased alternative and explanation.
+                <strong className="text-neutral-500">Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover. You can also request a rewrite for the entire text using the button below the interactive text area if issues are found.
               </li>
             </ol>
           </CardDescription>
@@ -362,22 +414,45 @@ export function BiasGuardTool() {
             { detectionResults && (!detectionResults.biasDetections || detectionResults.biasDetections.length === 0) && (!form.getValues("text") || form.getValues("text").trim() === "") && (
                  <p className="text-sm text-neutral-400">Enter text above and click "Analyze Text" to see results.</p>
             )}
+
+            {detectionResults && (detectionResults.biasDetections.length > 0 || detectionResults.overallBiasScore > 0.3 || detectionResults.overallHallucinationScore > 0.3 || detectionResults.overallIdeologicalSkewScore > 0.3) && (
+              <div className="mt-6">
+                <Button
+                  onClick={handleRequestFullRewrite}
+                  disabled={isLoadingFullRewrite || isLoadingDetection || isLoadingRewrite}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl"
+                  size="lg"
+                >
+                  {isLoadingFullRewrite ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Rewriting Entire Text...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      Get Enhanced Rewrite for Entire Text
+                    </>
+                  )}
+                </Button>
+              </div>
+            )}
           </CardContent>
 
-          {isLoadingRewrite && (
-            <CardFooter className="flex justify-center items-center py-4">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
-              <p className="ml-3 text-muted-foreground">Generating enhanced rewrite...</p>
-            </CardFooter>
-          )}
+          <CardFooter className="flex-col items-stretch space-y-4">
+            {isLoadingRewrite && !isLoadingFullRewrite && ( // Show only if not doing full rewrite
+              <div className="flex justify-center items-center py-4">
+                <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                <p className="ml-3 text-muted-foreground">Generating enhanced phrase rewrite...</p>
+              </div>
+            )}
 
-          {currentRewriteData && activeRewriteRequest && (
-            <CardFooter className="mt-4">
+            {currentRewriteData && activeRewriteRequest && !fullRewriteData && ( // Show only if no full rewrite data
               <Card className="w-full opacity-65 bg-neutral-800 text-foreground shadow-md rounded-[30px]">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center text-foreground">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
-                    Enhanced Rewrite Suggestion
+                    Enhanced Rewrite Suggestion (Phrase)
                   </CardTitle>
                   <CardDescription className="text-neutral-400">For the phrase: "{activeRewriteRequest.phrase}" (Bias Type: {activeRewriteRequest.biasType})</CardDescription>
                 </CardHeader>
@@ -398,8 +473,42 @@ export function BiasGuardTool() {
                   </div>
                 </CardContent>
               </Card>
-            </CardFooter>
-          )}
+            )}
+
+            {isLoadingFullRewrite && (
+              <div className="flex justify-center items-center py-4">
+                <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                <p className="ml-3 text-muted-foreground">Generating full text rewrite...</p>
+              </div>
+            )}
+            
+            {fullRewriteData && (
+              <Card className="w-full opacity-65 bg-neutral-800 text-foreground shadow-md rounded-[30px] mt-4">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center text-foreground">
+                    <Sparkles className="mr-2 h-5 w-5 text-accent" />
+                    Enhanced Rewrite for Entire Text
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div>
+                    <h4 className="text-sm font-semibold text-neutral-400">Rewritten Full Text:</h4>
+                    <p className="p-2 border rounded-md bg-background text-neutral-400 font-medium whitespace-pre-wrap">
+                      {fullRewriteData.rewrittenText}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-neutral-400">Explanation:</h4>
+                    <p className="text-sm text-neutral-400">{fullRewriteData.explanation}</p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-neutral-400">Confidence:</h4>
+                    <p className="text-sm text-neutral-400">{(fullRewriteData.confidenceScore * 100).toFixed(0)}% certain this rewrite is improved.</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </CardFooter>
         </Card>
       )}
     </div>
