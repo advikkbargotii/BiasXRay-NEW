@@ -158,14 +158,14 @@ export function BiasGuardTool() {
       <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
         <CardHeader>
           <CardTitle className="text-2xl text-foreground">Analyze Text for Bias, Hallucination & Skew</CardTitle>
-          <CardDescription className="text-muted-foreground">
+          <CardDescription className="text-neutral-400">
             <p className="mb-3">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
               factual inaccuracies (hallucinations), and ideological skew within your text.
               Our goal is to promote fairer and more ethical communication.
             </p>
-            <strong>How to use:</strong>
-            <ol className="list-decimal list-inside mt-1 space-y-1">
+            <strong className="text-neutral-400">How to use:</strong>
+            <ol className="list-decimal list-inside mt-1 space-y-1 text-neutral-400">
               <li>
                 <strong>Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
               </li>
@@ -242,13 +242,13 @@ export function BiasGuardTool() {
               {detectionResults.overallBiasScore !== undefined && (
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
-                      <span className="text-sm font-semibold text-foreground flex items-center"><AlertTriangle className="mr-2 h-4 w-4 text-yellow-500"/>Overall Bias Score:</span>
+                      <span className="text-sm font-semibold text-neutral-400 flex items-center"><AlertTriangle className="mr-2 h-4 w-4 text-yellow-500"/>Overall Bias Score:</span>
                       <span className={`text-sm font-bold ${detectionResults.overallBiasScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
                           {(detectionResults.overallBiasScore * 100).toFixed(0)}%
                       </span>
                     </div>
                     <Progress value={detectionResults.overallBiasScore * 100} className="w-full h-2" />
-                     <p className="text-sm text-muted-foreground mt-1">
+                     <p className="text-sm text-neutral-400 mt-1">
                       {detectionResults.overallBiasScore > 0.7 ? "High likelihood of bias." : detectionResults.overallBiasScore > 0.3 ? "Moderate likelihood of bias." : "Low likelihood of bias."}
                     </p>
                   </div>
@@ -256,13 +256,13 @@ export function BiasGuardTool() {
                {detectionResults.overallHallucinationScore !== undefined && (
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
-                      <span className="text-sm font-semibold text-foreground flex items-center"><Brain className="mr-2 h-4 w-4 text-blue-500"/>Overall Hallucination Score:</span>
+                      <span className="text-sm font-semibold text-neutral-400 flex items-center"><Brain className="mr-2 h-4 w-4 text-blue-500"/>Overall Hallucination Score:</span>
                       <span className={`text-sm font-bold ${detectionResults.overallHallucinationScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
                           {(detectionResults.overallHallucinationScore * 100).toFixed(0)}%
                       </span>
                     </div>
                     <Progress value={detectionResults.overallHallucinationScore * 100} className="w-full h-2" />
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-neutral-400 mt-1">
                       {detectionResults.overallHallucinationScore > 0.7 ? "High likelihood of hallucination." : detectionResults.overallHallucinationScore > 0.3 ? "Moderate likelihood of hallucination." : "Low likelihood of hallucination."}
                     </p>
                   </div>
@@ -270,13 +270,13 @@ export function BiasGuardTool() {
               {detectionResults.overallIdeologicalSkewScore !== undefined && (
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
-                      <span className="text-sm font-semibold text-foreground flex items-center"><Scale className="mr-2 h-4 w-4 text-purple-500"/>Overall Ideological Skew Score:</span>
+                      <span className="text-sm font-semibold text-neutral-400 flex items-center"><Scale className="mr-2 h-4 w-4 text-purple-500"/>Overall Ideological Skew Score:</span>
                       <span className={`text-sm font-bold ${detectionResults.overallIdeologicalSkewScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
                           {(detectionResults.overallIdeologicalSkewScore * 100).toFixed(0)}%
                       </span>
                     </div>
                     <Progress value={detectionResults.overallIdeologicalSkewScore * 100} className="w-full h-2" />
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-neutral-400 mt-1">
                       {detectionResults.overallIdeologicalSkewScore > 0.7 ? "Significant ideological skew detected." : detectionResults.overallIdeologicalSkewScore > 0.3 ? "Moderate ideological skew detected." : "Minimal ideological skew detected."}
                     </p>
                   </div>
@@ -284,7 +284,7 @@ export function BiasGuardTool() {
             </div>
           </CardHeader>
           <CardContent>
-            <h3 className="text-lg font-semibold mb-2 mt-4 text-foreground">Interactive Text (Highlight specific biases):</h3>
+            <h3 className="text-lg font-semibold mb-2 mt-4 text-neutral-400">Interactive Text (Highlight specific biases):</h3>
             {textSegments.length > 0 ? (
               <div className="p-4 border rounded-md bg-background leading-relaxed text-base whitespace-pre-wrap">
                 {textSegments.map((segment, index) =>
@@ -305,26 +305,26 @@ export function BiasGuardTool() {
                       <PopoverContent className="w-80 shadow-xl">
                         <div className="space-y-3">
                           <h4 className="font-semibold text-black">Bias Details</h4>
-                          <p className="text-sm">
-                            <strong className="text-muted-foreground">Type:</strong> {segment.biasInfo.biasType}
+                          <p className="text-sm text-neutral-400">
+                            <strong className="text-neutral-400">Type:</strong> {segment.biasInfo.biasType}
                           </p>
-                          <p className="text-sm">
-                            <strong className="text-muted-foreground">Confidence (Bias):</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}%
+                          <p className="text-sm text-neutral-400">
+                            <strong className="text-neutral-400">Confidence (Bias):</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}%
                           </p>
-                          <p className="text-sm">
-                            <strong className="text-muted-foreground">Original Phrase:</strong> "{segment.biasInfo.biasedPhrase}"
+                          <p className="text-sm text-neutral-400">
+                            <strong className="text-neutral-400">Original Phrase:</strong> "{segment.biasInfo.biasedPhrase}"
                           </p>
-                          <p className="text-sm">
-                            <strong className="text-muted-foreground">Initial Suggestion:</strong> "{segment.biasInfo.suggestedRewrite}"
+                          <p className="text-sm text-neutral-400">
+                            <strong className="text-neutral-400">Initial Suggestion:</strong> "{segment.biasInfo.suggestedRewrite}"
                           </p>
                           {segment.biasInfo.hallucinationScore !== undefined && (
-                            <p className="text-sm">
-                              <strong className="text-muted-foreground">Hallucination Score (Phrase):</strong> {(segment.biasInfo.hallucinationScore * 100).toFixed(0)}%
+                            <p className="text-sm text-neutral-400">
+                              <strong className="text-neutral-400">Hallucination Score (Phrase):</strong> {(segment.biasInfo.hallucinationScore * 100).toFixed(0)}%
                             </p>
                           )}
                           {segment.biasInfo.ideologicalSkewScore !== undefined && (
-                            <p className="text-sm">
-                              <strong className="text-muted-foreground">Ideological Skew Score (Phrase):</strong> {(segment.biasInfo.ideologicalSkewScore * 100).toFixed(0)}%
+                            <p className="text-sm text-neutral-400">
+                              <strong className="text-neutral-400">Ideological Skew Score (Phrase):</strong> {(segment.biasInfo.ideologicalSkewScore * 100).toFixed(0)}%
                             </p>
                           )}
                           <Separator />
@@ -350,17 +350,17 @@ export function BiasGuardTool() {
                       </PopoverContent>
                     </Popover>
                   ) : (
-                    <span key={index} className="text-foreground">{segment.text}</span>
+                    <span key={index} className="text-neutral-400">{segment.text}</span>
                   )
                 )}
               </div>
             ) : (
                detectionResults && detectionResults.biasDetections && detectionResults.biasDetections.length === 0 && (
-                 <p className="text-sm text-muted-foreground">No specific biased phrases found to highlight, but check overall scores above.</p>
+                 <p className="text-sm text-neutral-400">No specific biased phrases found to highlight, but check overall scores above.</p>
                )
             )}
             { detectionResults && (!detectionResults.biasDetections || detectionResults.biasDetections.length === 0) && (!form.getValues("text") || form.getValues("text").trim() === "") && (
-                 <p className="text-sm text-muted-foreground">Enter text above and click "Analyze Text" to see results.</p>
+                 <p className="text-sm text-neutral-400">Enter text above and click "Analyze Text" to see results.</p>
             )}
           </CardContent>
 
@@ -379,22 +379,22 @@ export function BiasGuardTool() {
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
                     Enhanced Rewrite Suggestion
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground">For the phrase: "{activeRewriteRequest.phrase}" (Bias Type: {activeRewriteRequest.biasType})</CardDescription>
+                  <CardDescription className="text-neutral-400">For the phrase: "{activeRewriteRequest.phrase}" (Bias Type: {activeRewriteRequest.biasType})</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground">Rewritten Text:</h4>
-                    <p className="p-2 border rounded-md bg-background text-green-700 dark:text-green-400 font-medium">
+                    <h4 className="text-sm font-semibold text-neutral-400">Rewritten Text:</h4>
+                    <p className="p-2 border rounded-md bg-background text-neutral-400 font-medium">
                       {currentRewriteData.rewrittenText}
                     </p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground">Explanation:</h4>
-                    <p className="text-sm text-muted-foreground">{currentRewriteData.explanation}</p>
+                    <h4 className="text-sm font-semibold text-neutral-400">Explanation:</h4>
+                    <p className="text-sm text-neutral-400">{currentRewriteData.explanation}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-foreground">Confidence:</h4>
-                    <p className="text-sm text-muted-foreground">{(currentRewriteData.confidenceScore * 100).toFixed(0)}% certain this rewrite is unbiased.</p>
+                    <h4 className="text-sm font-semibold text-neutral-400">Confidence:</h4>
+                    <p className="text-sm text-neutral-400">{(currentRewriteData.confidenceScore * 100).toFixed(0)}% certain this rewrite is unbiased.</p>
                   </div>
                 </CardContent>
               </Card>
@@ -405,4 +405,6 @@ export function BiasGuardTool() {
     </div>
   );
 }
+    
+
     
