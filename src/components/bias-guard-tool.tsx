@@ -157,34 +157,34 @@ export function BiasGuardTool() {
     <div className="space-y-8">
       <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
         <CardHeader>
-          <CardTitle className="text-2xl text-foreground">Analyze Text for Bias, Hallucination & Skew</CardTitle>
-          <CardDescription className="text-neutral-400">
+          <CardTitle className="text-2xl text-neutral-300">Analyze Text for Bias, Hallucination & Skew</CardTitle>
+          <CardDescription className="text-neutral-500">
             <p className="mb-3">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
               factual inaccuracies (hallucinations), and ideological skew within your text.
               Our goal is to promote fairer and more ethical communication.
             </p>
-            <strong className="text-neutral-400">How to use:</strong>
-            <ol className="list-decimal list-inside mt-1 space-y-1 text-neutral-400">
-              <li>
-                <strong>Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
+            <strong className="text-neutral-500">How to use:</strong>
+            <ol className="list-decimal list-inside mt-1 space-y-1 text-neutral-500">
+              <li className="text-neutral-500">
+                <strong className="text-neutral-500">Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
               </li>
-              <li>
-                <strong>Analyze:</strong> Click the 'Analyze Text' button.
+              <li className="text-neutral-500">
+                <strong className="text-neutral-500">Analyze:</strong> Click the 'Analyze Text' button.
               </li>
-              <li>
-                <strong>Review Results:</strong>
-                <ul className="list-disc list-inside ml-5 mt-1 space-y-0.5">
-                  <li>
-                    <strong>Overall Scores:</strong> Check the overall scores for bias, hallucination, and ideological skew displayed above the interactive text.
+              <li className="text-neutral-500">
+                <strong className="text-neutral-500">Review Results:</strong>
+                <ul className="list-disc list-inside ml-5 mt-1 space-y-0.5 text-neutral-500">
+                  <li className="text-neutral-500">
+                    <strong className="text-neutral-500">Overall Scores:</strong> Check the overall scores for bias, hallucination, and ideological skew displayed above the interactive text.
                   </li>
-                  <li>
-                    <strong>Interactive Text:</strong> Potentially biased phrases will be highlighted. Click on them to see details like bias type, confidence, and an initial rewrite suggestion.
+                  <li className="text-neutral-500">
+                    <strong className="text-neutral-500">Interactive Text:</strong> Potentially biased phrases will be highlighted. Click on them to see details like bias type, confidence, and an initial rewrite suggestion.
                   </li>
                 </ul>
               </li>
-              <li>
-                <strong>Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover to receive a more detailed, AI-generated unbiased alternative and explanation.
+              <li className="text-neutral-500">
+                <strong className="text-neutral-500">Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover to receive a more detailed, AI-generated unbiased alternative and explanation.
               </li>
             </ol>
           </CardDescription>
@@ -405,6 +405,8 @@ export function BiasGuardTool() {
     </div>
   );
 }
+    
+
     
 
     
