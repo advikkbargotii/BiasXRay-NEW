@@ -155,7 +155,7 @@ export function BiasGuardTool() {
 
   return (
     <div className="space-y-8">
-      <Card className="shadow-lg rounded-[30px] opacity-65 bg-card">
+      <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
         <CardHeader>
           <CardTitle className="text-2xl">Analyze Text for Bias, Hallucination & Skew</CardTitle>
           <CardDescription>
@@ -375,11 +375,11 @@ export function BiasGuardTool() {
             <CardFooter className="mt-4">
               <Card className="w-full opacity-65 bg-neutral-800 text-foreground shadow-md rounded-[30px]">
                 <CardHeader>
-                  <CardTitle className="text-lg flex items-center">
+                  <CardTitle className="text-lg flex items-center text-foreground">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
                     Enhanced Rewrite Suggestion
                   </CardTitle>
-                  <CardDescription>For the phrase: "{activeRewriteRequest.phrase}" (Bias Type: {activeRewriteRequest.biasType})</CardDescription>
+                  <CardDescription className="text-muted-foreground">For the phrase: "{activeRewriteRequest.phrase}" (Bias Type: {activeRewriteRequest.biasType})</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
