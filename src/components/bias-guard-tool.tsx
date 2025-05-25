@@ -235,14 +235,14 @@ export function BiasGuardTool() {
       )}
 
       {detectionResults && (
-        <Card className="shadow-lg rounded-[30px] opacity-65 bg-card">
+        <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
           <CardHeader>
             <CardTitle className="text-xl">Analysis Results</CardTitle>
             <div className="space-y-3 mt-2">
               {detectionResults.overallBiasScore !== undefined && (
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
-                      <span className="text-sm font-semibold text-card-foreground flex items-center"><AlertTriangle className="mr-2 h-4 w-4 text-yellow-500"/>Overall Bias Score:</span>
+                      <span className="text-sm font-semibold text-foreground flex items-center"><AlertTriangle className="mr-2 h-4 w-4 text-yellow-500"/>Overall Bias Score:</span>
                       <span className={`text-sm font-bold ${detectionResults.overallBiasScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
                           {(detectionResults.overallBiasScore * 100).toFixed(0)}%
                       </span>
@@ -256,7 +256,7 @@ export function BiasGuardTool() {
                {detectionResults.overallHallucinationScore !== undefined && (
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
-                      <span className="text-sm font-semibold text-card-foreground flex items-center"><Brain className="mr-2 h-4 w-4 text-blue-500"/>Overall Hallucination Score:</span>
+                      <span className="text-sm font-semibold text-foreground flex items-center"><Brain className="mr-2 h-4 w-4 text-blue-500"/>Overall Hallucination Score:</span>
                       <span className={`text-sm font-bold ${detectionResults.overallHallucinationScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
                           {(detectionResults.overallHallucinationScore * 100).toFixed(0)}%
                       </span>
@@ -270,7 +270,7 @@ export function BiasGuardTool() {
               {detectionResults.overallIdeologicalSkewScore !== undefined && (
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
-                      <span className="text-sm font-semibold text-card-foreground flex items-center"><Scale className="mr-2 h-4 w-4 text-purple-500"/>Overall Ideological Skew Score:</span>
+                      <span className="text-sm font-semibold text-foreground flex items-center"><Scale className="mr-2 h-4 w-4 text-purple-500"/>Overall Ideological Skew Score:</span>
                       <span className={`text-sm font-bold ${detectionResults.overallIdeologicalSkewScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
                           {(detectionResults.overallIdeologicalSkewScore * 100).toFixed(0)}%
                       </span>
@@ -284,7 +284,7 @@ export function BiasGuardTool() {
             </div>
           </CardHeader>
           <CardContent>
-            <h3 className="text-lg font-semibold mb-2 mt-4 text-card-foreground">Interactive Text (Highlight specific biases):</h3>
+            <h3 className="text-lg font-semibold mb-2 mt-4 text-foreground">Interactive Text (Highlight specific biases):</h3>
             {textSegments.length > 0 ? (
               <div className="p-4 border rounded-md bg-background leading-relaxed text-base whitespace-pre-wrap">
                 {textSegments.map((segment, index) =>
@@ -373,7 +373,7 @@ export function BiasGuardTool() {
 
           {currentRewriteData && activeRewriteRequest && (
             <CardFooter className="mt-4">
-              <Card className="w-full opacity-65 bg-card shadow-md rounded-[30px]">
+              <Card className="w-full opacity-65 bg-neutral-800 text-foreground shadow-md rounded-[30px]">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
@@ -383,17 +383,17 @@ export function BiasGuardTool() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <h4 className="text-sm font-semibold text-card-foreground">Rewritten Text:</h4>
+                    <h4 className="text-sm font-semibold text-foreground">Rewritten Text:</h4>
                     <p className="p-2 border rounded-md bg-background text-green-700 dark:text-green-400 font-medium">
                       {currentRewriteData.rewrittenText}
                     </p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-card-foreground">Explanation:</h4>
+                    <h4 className="text-sm font-semibold text-foreground">Explanation:</h4>
                     <p className="text-sm text-muted-foreground">{currentRewriteData.explanation}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-card-foreground">Confidence:</h4>
+                    <h4 className="text-sm font-semibold text-foreground">Confidence:</h4>
                     <p className="text-sm text-muted-foreground">{(currentRewriteData.confidenceScore * 100).toFixed(0)}% certain this rewrite is unbiased.</p>
                   </div>
                 </CardContent>
@@ -405,5 +405,4 @@ export function BiasGuardTool() {
     </div>
   );
 }
-
     
