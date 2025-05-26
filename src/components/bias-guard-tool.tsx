@@ -207,7 +207,7 @@ export function BiasGuardTool() {
 
   return (
     <div className="space-y-8">
-      <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800">
+      <Card className="shadow-lg rounded-[30px] bg-neutral-800/65">
         <CardHeader>
           <CardTitle className="text-2xl text-white">Analyze Text for Bias, Hallucination &amp; Skew</CardTitle>
            <CardDescription className="text-neutral-500">
@@ -519,5 +519,6 @@ export function BiasGuardTool() {
     
 
     
+
 
 
