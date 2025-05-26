@@ -210,33 +210,33 @@ export function BiasGuardTool() {
       <Card className="shadow-lg rounded-[30px] bg-neutral-800/65">
         <CardHeader>
           <CardTitle className="text-2xl text-white">Analyze Text for Bias, Hallucination &amp; Skew</CardTitle>
-           <CardDescription className="text-neutral-500">
-            <p className="mb-3 text-neutral-500">
+           <CardDescription className="text-neutral-400">
+            <p className="mb-3 text-neutral-400">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
               factual inaccuracies (hallucinations), and ideological skew within your text.
               Our goal is to promote fairer and more ethical communication.
             </p>
-            <strong className="text-neutral-500">How to use:</strong>
-            <ol className="list-decimal list-inside mt-1 space-y-1 text-neutral-500">
-              <li className="text-neutral-500">
-                <strong className="text-neutral-500">Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
+            <strong className="text-neutral-400">How to use:</strong>
+            <ol className="list-decimal list-inside mt-1 space-y-1 text-neutral-400">
+              <li className="text-neutral-400">
+                <strong className="text-neutral-400">Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
               </li>
-              <li className="text-neutral-500">
-                <strong className="text-neutral-500">Analyze:</strong> Click the 'Analyze Text' button.
+              <li className="text-neutral-400">
+                <strong className="text-neutral-400">Analyze:</strong> Click the 'Analyze Text' button.
               </li>
-              <li className="text-neutral-500">
-                <strong className="text-neutral-500">Review Results:</strong>
-                <ul className="list-disc list-inside ml-5 mt-1 space-y-0.5 text-neutral-500">
-                  <li className="text-neutral-500">
-                    <strong className="text-neutral-500">Overall Scores:</strong> Check the overall scores for bias, hallucination, and ideological skew displayed above the interactive text.
+              <li className="text-neutral-400">
+                <strong className="text-neutral-400">Review Results:</strong>
+                <ul className="list-disc list-inside ml-5 mt-1 space-y-0.5 text-neutral-400">
+                  <li className="text-neutral-400">
+                    <strong className="text-neutral-400">Overall Scores:</strong> Check the overall scores for bias, hallucination, and ideological skew displayed above the interactive text.
                   </li>
-                  <li className="text-neutral-500">
-                    <strong className="text-neutral-500">Interactive Text:</strong> Potentially biased phrases will be highlighted. Click on them to see details like bias type, confidence, and an initial rewrite suggestion.
+                  <li className="text-neutral-400">
+                    <strong className="text-neutral-400">Interactive Text:</strong> Potentially biased phrases will be highlighted. Click on them to see details like bias type, confidence, and an initial rewrite suggestion.
                   </li>
                 </ul>
               </li>
-              <li className="text-neutral-500">
-                <strong className="text-neutral-500">Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover. You can also request a rewrite for the entire text using the button below the interactive text area if issues are found.
+              <li className="text-neutral-400">
+                <strong className="text-neutral-400">Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover. You can also request a rewrite for the entire text using the button below the interactive text area if issues are found.
               </li>
             </ol>
           </CardDescription>
@@ -448,7 +448,7 @@ export function BiasGuardTool() {
             )}
 
             {currentRewriteData && activeRewriteRequest && !fullRewriteData && ( // Show only if no full rewrite data
-              <Card className="w-full opacity-65 bg-neutral-800 text-foreground shadow-md rounded-[30px]">
+              <Card className="w-full bg-neutral-800 opacity-65 text-foreground shadow-md rounded-[30px]">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center text-neutral-400">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
@@ -519,6 +519,7 @@ export function BiasGuardTool() {
     
 
     
+
 
 
 
