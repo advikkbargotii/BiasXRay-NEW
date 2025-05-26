@@ -225,7 +225,7 @@ export function BiasGuardTool() {
               Our goal is to promote fairer and more ethical communication.
             </p>
             <strong className="text-neutral-400">How to use:</strong>
-            <ol className="list-decimal list-inside mt-1 space-y-1">
+            <ol className="list-decimal list-inside mt-1 space-y-1 text-neutral-400">
               <li>
                 <strong>Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
               </li>
@@ -295,7 +295,7 @@ export function BiasGuardTool() {
       )}
 
       {detectionResults && (
-        <Card className="shadow-lg rounded-[30px] bg-neutral-800/65 opacity-65">
+        <Card className="shadow-lg rounded-[30px] bg-neutral-800/65">
           <CardHeader>
             <CardTitle className="text-xl text-white">Analysis Results</CardTitle>
             <div className="space-y-3 mt-2">
@@ -353,7 +353,7 @@ export function BiasGuardTool() {
                       <PopoverTrigger asChild>
                         <span
                           className={cn(
-                            "cursor-pointer rounded px-1 py-0.5 transition-all duration-150 ease-in-out text-neutral-900", // Added text-neutral-900 for highlighted text
+                            "cursor-pointer rounded px-1 py-0.5 transition-all duration-150 ease-in-out", 
                             getBiasSeverityColor(segment.biasInfo.confidenceScore),
                             "font-medium"
                           )}
@@ -362,29 +362,29 @@ export function BiasGuardTool() {
                           {segment.text}
                         </span>
                       </PopoverTrigger>
-                      <PopoverContent className="w-80 shadow-xl bg-white text-black"> {/* Popover background white, text black */}
+                      <PopoverContent className="w-80 shadow-xl">
                         <div className="space-y-3">
-                          <h4 className="font-semibold">Bias Details</h4> {/* Inherits text-black */}
-                          <p className="text-sm"> {/* Inherits text-black */}
-                            <strong>Type:</strong> {segment.biasInfo.biasType} {/* Inherits text-black */}
+                          <h4 className="font-semibold text-black">Bias Details</h4>
+                          <p className="text-sm text-neutral-400">
+                            <strong>Type:</strong> {segment.biasInfo.biasType}
                           </p>
-                          <p className="text-sm"> {/* Inherits text-black */}
-                            <strong>Confidence (Bias):</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}% {/* Inherits text-black */}
+                          <p className="text-sm text-neutral-400">
+                            <strong>Confidence (Bias):</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}%
                           </p>
-                          <p className="text-sm"> {/* Inherits text-black */}
-                            <strong>Original Phrase:</strong> "{segment.biasInfo.biasedPhrase}" {/* Inherits text-black */}
+                          <p className="text-sm text-neutral-400">
+                            <strong>Original Phrase:</strong> "{segment.biasInfo.biasedPhrase}"
                           </p>
-                          <p className="text-sm"> {/* Inherits text-black */}
-                            <strong>Initial Suggestion:</strong> "{segment.biasInfo.suggestedRewrite}" {/* Inherits text-black */}
+                          <p className="text-sm text-neutral-400">
+                            <strong>Initial Suggestion:</strong> "{segment.biasInfo.suggestedRewrite}"
                           </p>
                           {segment.biasInfo.hallucinationScore !== undefined && (
-                            <p className="text-sm"> {/* Inherits text-black */}
-                              <strong>Hallucination Score (Phrase):</strong> {(segment.biasInfo.hallucinationScore * 100).toFixed(0)}% {/* Inherits text-black */}
+                            <p className="text-sm text-neutral-400">
+                              <strong>Hallucination Score (Phrase):</strong> {(segment.biasInfo.hallucinationScore * 100).toFixed(0)}%
                             </p>
                           )}
                           {segment.biasInfo.ideologicalSkewScore !== undefined && (
-                            <p className="text-sm"> {/* Inherits text-black */}
-                              <strong>Ideological Skew Score (Phrase):</strong> {(segment.biasInfo.ideologicalSkewScore * 100).toFixed(0)}% {/* Inherits text-black */}
+                            <p className="text-sm text-neutral-400">
+                              <strong>Ideological Skew Score (Phrase):</strong> {(segment.biasInfo.ideologicalSkewScore * 100).toFixed(0)}%
                             </p>
                           )}
                           <Separator />
@@ -410,7 +410,7 @@ export function BiasGuardTool() {
                       </PopoverContent>
                     </Popover>
                   ) : (
-                    <span key={index} className="text-white">{segment.text}</span> // Non-highlighted text is white
+                    <span key={index} className="text-neutral-400">{segment.text}</span>
                   )
                 )}
               </div>
@@ -456,7 +456,7 @@ export function BiasGuardTool() {
             )}
 
             {currentRewriteData && activeRewriteRequest && !fullRewriteData && ( // Show only if no full rewrite data
-              <Card className="w-full bg-neutral-800 opacity-65 text-foreground shadow-md rounded-[30px]">
+              <Card className="w-full bg-neutral-800/65 opacity-65 text-foreground shadow-md rounded-[30px]">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center text-neutral-400">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
@@ -491,7 +491,7 @@ export function BiasGuardTool() {
             )}
             
             {fullRewriteData && (
-              <Card className="w-full bg-neutral-800/65 opacity-65 mt-4 rounded-[30px]">
+              <Card className="w-full bg-neutral-800/65 mt-4 rounded-[30px]">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center text-white">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
@@ -527,6 +527,7 @@ export function BiasGuardTool() {
     
 
     
+
 
 
 
