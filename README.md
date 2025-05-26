@@ -1,4 +1,4 @@
-# Firebase Studio
+# Bias X-Ray
 
 This is a NextJS starter in Firebase Studio.
 
