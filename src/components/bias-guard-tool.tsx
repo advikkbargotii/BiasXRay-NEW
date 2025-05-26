@@ -209,9 +209,9 @@ export function BiasGuardTool() {
     <div className="space-y-8">
       <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
         <CardHeader>
-          <CardTitle className="text-2xl text-neutral-300">Analyze Text for Bias, Hallucination & Skew</CardTitle>
+          <CardTitle className="text-2xl text-foreground">Analyze Text for Bias, Hallucination &amp; Skew</CardTitle>
            <CardDescription className="text-neutral-500">
-            <p className="mb-3">
+            <p className="mb-3 text-neutral-500">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
               factual inaccuracies (hallucinations), and ideological skew within your text.
               Our goal is to promote fairer and more ethical communication.
@@ -519,3 +519,4 @@ export function BiasGuardTool() {
     
 
     
+
