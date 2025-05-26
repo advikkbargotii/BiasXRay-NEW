@@ -219,32 +219,32 @@ export function BiasGuardTool() {
         <CardHeader>
           <CardTitle className="text-2xl text-white">Analyze Text for Bias, Hallucination &amp; Skew</CardTitle>
            <CardDescription className="text-neutral-400">
-            <p className="mb-3 text-neutral-400">
+            <p className="mb-3">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
               factual inaccuracies (hallucinations), and ideological skew within your text.
               Our goal is to promote fairer and more ethical communication.
             </p>
             <strong className="text-neutral-400">How to use:</strong>
-            <ol className="list-decimal list-inside mt-1 space-y-1 text-neutral-400">
-              <li className="text-neutral-400">
-                <strong className="text-neutral-400">Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
+            <ol className="list-decimal list-inside mt-1 space-y-1">
+              <li>
+                <strong>Enter Text:</strong> Paste or type the text you want to analyze into the text area below.
               </li>
-              <li className="text-neutral-400">
-                <strong className="text-neutral-400">Analyze:</strong> Click the 'Analyze Text' button.
+              <li>
+                <strong>Analyze:</strong> Click the 'Analyze Text' button.
               </li>
-              <li className="text-neutral-400">
-                <strong className="text-neutral-400">Review Results:</strong>
-                <ul className="list-disc list-inside ml-5 mt-1 space-y-0.5 text-neutral-400">
-                  <li className="text-neutral-400">
-                    <strong className="text-neutral-400">Overall Scores:</strong> Check the overall scores for bias, hallucination, and ideological skew displayed above the interactive text.
+              <li>
+                <strong>Review Results:</strong>
+                <ul className="list-disc list-inside ml-5 mt-1 space-y-0.5">
+                  <li>
+                    <strong>Overall Scores:</strong> Check the overall scores for bias, hallucination, and ideological skew displayed above the interactive text.
                   </li>
-                  <li className="text-neutral-400">
-                    <strong className="text-neutral-400">Interactive Text:</strong> Potentially biased phrases will be highlighted. Click on them to see details like bias type, confidence, and an initial rewrite suggestion.
+                  <li>
+                    <strong>Interactive Text:</strong> Potentially biased phrases will be highlighted. Click on them to see details like bias type, confidence, and an initial rewrite suggestion.
                   </li>
                 </ul>
               </li>
-              <li className="text-neutral-400">
-                <strong className="text-neutral-400">Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover. You can also request a rewrite for the entire text using the button below the interactive text area if issues are found.
+              <li>
+                <strong>Get Enhanced Rewrite:</strong> For any highlighted phrase, click 'Get Enhanced Rewrite' in its popover. You can also request a rewrite for the entire text using the button below the interactive text area if issues are found.
               </li>
             </ol>
           </CardDescription>
@@ -353,7 +353,7 @@ export function BiasGuardTool() {
                       <PopoverTrigger asChild>
                         <span
                           className={cn(
-                            "cursor-pointer rounded px-1 py-0.5 transition-all duration-150 ease-in-out",
+                            "cursor-pointer rounded px-1 py-0.5 transition-all duration-150 ease-in-out text-neutral-900", // Added text-neutral-900 for highlighted text
                             getBiasSeverityColor(segment.biasInfo.confidenceScore),
                             "font-medium"
                           )}
@@ -362,29 +362,29 @@ export function BiasGuardTool() {
                           {segment.text}
                         </span>
                       </PopoverTrigger>
-                      <PopoverContent className="w-80 shadow-xl">
+                      <PopoverContent className="w-80 shadow-xl bg-white text-black"> {/* Popover background white, text black */}
                         <div className="space-y-3">
-                          <h4 className="font-semibold text-black">Bias Details</h4>
-                          <p className="text-sm text-neutral-400">
-                            <strong className="text-neutral-400">Type:</strong> {segment.biasInfo.biasType}
+                          <h4 className="font-semibold">Bias Details</h4> {/* Inherits text-black */}
+                          <p className="text-sm"> {/* Inherits text-black */}
+                            <strong>Type:</strong> {segment.biasInfo.biasType} {/* Inherits text-black */}
                           </p>
-                          <p className="text-sm text-neutral-400">
-                            <strong className="text-neutral-400">Confidence (Bias):</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}%
+                          <p className="text-sm"> {/* Inherits text-black */}
+                            <strong>Confidence (Bias):</strong> {(segment.biasInfo.confidenceScore * 100).toFixed(0)}% {/* Inherits text-black */}
                           </p>
-                          <p className="text-sm text-neutral-400">
-                            <strong className="text-neutral-400">Original Phrase:</strong> "{segment.biasInfo.biasedPhrase}"
+                          <p className="text-sm"> {/* Inherits text-black */}
+                            <strong>Original Phrase:</strong> "{segment.biasInfo.biasedPhrase}" {/* Inherits text-black */}
                           </p>
-                          <p className="text-sm text-neutral-400">
-                            <strong className="text-neutral-400">Initial Suggestion:</strong> "{segment.biasInfo.suggestedRewrite}"
+                          <p className="text-sm"> {/* Inherits text-black */}
+                            <strong>Initial Suggestion:</strong> "{segment.biasInfo.suggestedRewrite}" {/* Inherits text-black */}
                           </p>
                           {segment.biasInfo.hallucinationScore !== undefined && (
-                            <p className="text-sm text-neutral-400">
-                              <strong className="text-neutral-400">Hallucination Score (Phrase):</strong> {(segment.biasInfo.hallucinationScore * 100).toFixed(0)}%
+                            <p className="text-sm"> {/* Inherits text-black */}
+                              <strong>Hallucination Score (Phrase):</strong> {(segment.biasInfo.hallucinationScore * 100).toFixed(0)}% {/* Inherits text-black */}
                             </p>
                           )}
                           {segment.biasInfo.ideologicalSkewScore !== undefined && (
-                            <p className="text-sm text-neutral-400">
-                              <strong className="text-neutral-400">Ideological Skew Score (Phrase):</strong> {(segment.biasInfo.ideologicalSkewScore * 100).toFixed(0)}%
+                            <p className="text-sm"> {/* Inherits text-black */}
+                              <strong>Ideological Skew Score (Phrase):</strong> {(segment.biasInfo.ideologicalSkewScore * 100).toFixed(0)}% {/* Inherits text-black */}
                             </p>
                           )}
                           <Separator />
@@ -410,7 +410,7 @@ export function BiasGuardTool() {
                       </PopoverContent>
                     </Popover>
                   ) : (
-                    <span key={index} className="text-neutral-400">{segment.text}</span>
+                    <span key={index} className="text-white">{segment.text}</span> // Non-highlighted text is white
                   )
                 )}
               </div>
@@ -527,6 +527,7 @@ export function BiasGuardTool() {
     
 
     
+
 
 
 
