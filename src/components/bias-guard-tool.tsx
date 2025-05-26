@@ -207,9 +207,9 @@ export function BiasGuardTool() {
 
   return (
     <div className="space-y-8">
-      <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800 text-foreground">
+      <Card className="shadow-lg rounded-[30px] opacity-65 bg-neutral-800">
         <CardHeader>
-          <CardTitle className="text-2xl text-foreground">Analyze Text for Bias, Hallucination &amp; Skew</CardTitle>
+          <CardTitle className="text-2xl text-white">Analyze Text for Bias, Hallucination &amp; Skew</CardTitle>
            <CardDescription className="text-neutral-500">
             <p className="mb-3 text-neutral-500">
               Bias X-Ray is a tool designed to help you identify and understand potential biases,
@@ -519,4 +519,5 @@ export function BiasGuardTool() {
     
 
     
+
 
