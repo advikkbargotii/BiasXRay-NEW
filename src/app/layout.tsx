@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 export const metadata: Metadata = {
   title: 'Bias X-Ray',
   description: 'Audit, Detect, and Fix AI Bias in text content.',
+  icons: null, // This should prevent Next.js from serving a default favicon
 };
 
 export default function RootLayout({
