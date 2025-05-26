@@ -204,6 +204,14 @@ export function BiasGuardTool() {
     return 'bg-blue-200 dark:bg-blue-700 hover:bg-blue-300 dark:hover:bg-blue-600';
   };
 
+  const getScoreTextColor = (score: number): string => {
+    const percentage = score * 100;
+    if (percentage <= 25) return 'text-green-500';
+    if (percentage <= 50) return 'text-yellow-500';
+    if (percentage <= 75) return 'text-orange-500';
+    return 'text-red-500';
+  };
+
 
   return (
     <div className="space-y-8">
@@ -287,7 +295,7 @@ export function BiasGuardTool() {
       )}
 
       {detectionResults && (
-        <Card className="shadow-lg rounded-[30px] bg-neutral-800/65 text-foreground">
+        <Card className="shadow-lg rounded-[30px] bg-neutral-800/65 opacity-65">
           <CardHeader>
             <CardTitle className="text-xl text-white">Analysis Results</CardTitle>
             <div className="space-y-3 mt-2">
@@ -295,7 +303,7 @@ export function BiasGuardTool() {
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
                       <span className="text-sm font-semibold text-white flex items-center"><AlertTriangle className="mr-2 h-4 w-4 text-yellow-500"/>Overall Bias Score:</span>
-                      <span className={`text-sm font-bold ${detectionResults.overallBiasScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
+                      <span className={`text-sm font-bold ${getScoreTextColor(detectionResults.overallBiasScore)}`}>
                           {(detectionResults.overallBiasScore * 100).toFixed(0)}%
                       </span>
                     </div>
@@ -309,7 +317,7 @@ export function BiasGuardTool() {
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
                       <span className="text-sm font-semibold text-white flex items-center"><Brain className="mr-2 h-4 w-4 text-blue-500"/>Overall Hallucination Score:</span>
-                      <span className={`text-sm font-bold ${detectionResults.overallHallucinationScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
+                      <span className={`text-sm font-bold ${getScoreTextColor(detectionResults.overallHallucinationScore)}`}>
                           {(detectionResults.overallHallucinationScore * 100).toFixed(0)}%
                       </span>
                     </div>
@@ -323,7 +331,7 @@ export function BiasGuardTool() {
                   <div className="mt-2">
                     <div className='flex justify-between items-center mb-1'>
                       <span className="text-sm font-semibold text-white flex items-center"><Scale className="mr-2 h-4 w-4 text-purple-500"/>Overall Ideological Skew Score:</span>
-                      <span className={`text-sm font-bold ${detectionResults.overallIdeologicalSkewScore > 0.5 ? 'text-destructive' : 'text-green-600'}`}>
+                      <span className={`text-sm font-bold ${getScoreTextColor(detectionResults.overallIdeologicalSkewScore)}`}>
                           {(detectionResults.overallIdeologicalSkewScore * 100).toFixed(0)}%
                       </span>
                     </div>
@@ -483,7 +491,7 @@ export function BiasGuardTool() {
             )}
             
             {fullRewriteData && (
-              <Card className="w-full bg-neutral-800/65 text-foreground shadow-md rounded-[30px] mt-4">
+              <Card className="w-full bg-neutral-800/65 opacity-65 mt-4 rounded-[30px]">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center text-white">
                     <Sparkles className="mr-2 h-5 w-5 text-accent" />
@@ -519,6 +527,7 @@ export function BiasGuardTool() {
     
 
     
+
 
 
 
