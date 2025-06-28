@@ -1,4 +1,3 @@
-
 "use client";
 
 import type { DetectBiasInTextOutput, BiasDetectionResult } from '@/ai/flows/bias-detection';
@@ -7,9 +6,10 @@ import { detectBiasInText } from '@/ai/flows/bias-detection';
 import { suggestUnbiasedRewrites } from '@/ai/flows/bias-rewriting';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertTriangle, CheckCircle, Loader2, Sparkles, Brain, Scale } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState, Suspense } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useSearchParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -80,8 +80,8 @@ function segmentText(originalText: string, detections: BiasDetectionResult[]): T
   return segments;
 }
 
-
-export function BiasGuardTool() { 
+function BiasGuardToolInternal() { 
+  const searchParams = useSearchParams();
   const [isLoadingDetection, setIsLoadingDetection] = useState(false);
   const [detectionResults, setDetectionResults] = useState<DetectBiasInTextOutput | null>(null);
   
@@ -100,6 +100,13 @@ export function BiasGuardTool() {
       text: "",
     },
   });
+
+  useEffect(() => {
+    const textFromQuery = searchParams.get('text');
+    if (textFromQuery) {
+      form.setValue('text', textFromQuery);
+    }
+  }, [searchParams, form]);
 
   const handleDetectBias = async (values: z.infer<typeof formSchema>) => {
     setIsLoadingDetection(true);
@@ -521,6 +528,14 @@ export function BiasGuardTool() {
       )}
     </div>
   );
+}
+
+export function BiasGuardTool() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BiasGuardToolInternal />
+    </Suspense>
+  )
 }
     
 

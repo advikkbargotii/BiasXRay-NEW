@@ -25,6 +25,7 @@ const BiasDetectionResultSchema = z.object({
   hallucinationScore: z.number().optional().describe('A score (0-1) indicating the likelihood of hallucination in this specific phrase. Provided if this phrase also appears to be a hallucination.'),
   ideologicalSkewScore: z.number().optional().describe('A score (0-1) indicating the degree of ideological skew in this specific phrase. Provided if this phrase also exhibits ideological skew.'),
 });
+export type BiasDetectionResult = z.infer<typeof BiasDetectionResultSchema>;
 
 const DetectBiasInTextOutputSchema = z.object({
   overallBiasScore: z.number().describe('An overall score (0-1) indicating the general level of specific biases (like gender, racial etc.) in the text.'),
