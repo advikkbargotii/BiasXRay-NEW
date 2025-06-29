@@ -23,14 +23,33 @@ function initializePopup() {
         const pageText = results[0].result;
         
         if (pageText && pageText.trim().length > 10) {
-          // Send the text for analysis
-          await chrome.tabs.sendMessage(tab.id, {
-            action: "analyzeText",
-            text: pageText.substring(0, 3000) // Limit to 3000 characters
-          });
-          
-          // Close the popup
-          window.close();
+          try {
+            // Inject CSS first
+            await chrome.scripting.insertCSS({
+              target: { tabId: tab.id },
+              files: ['content/overlay.css']
+            });
+            
+            // Then inject the content script
+            await chrome.scripting.executeScript({
+              target: { tabId: tab.id },
+              files: ['content/content.js']
+            });
+            
+            // Wait a bit for the script to load, then send the message
+            setTimeout(async () => {
+              await chrome.tabs.sendMessage(tab.id, {
+                action: "analyzeText",
+                text: pageText.substring(0, 3000) // Limit to 3000 characters
+              });
+              
+              // Close the popup
+              window.close();
+            }, 100);
+          } catch (error) {
+            console.error('Failed to inject content script:', error);
+            showError('Failed to analyze page. Please try again.');
+          }
         } else {
           showError('No significant text found on this page.');
         }
