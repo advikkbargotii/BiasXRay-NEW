@@ -1,0 +1,325 @@
+/* BiasXRay Extension Overlay - Modern Design */
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Main Overlay Container */
+#biasxray-overlay {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999999;
+  background: rgba(38, 38, 38, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffffff;
+  border-radius: 30px;
+  padding: 28px;
+  max-width: 420px;
+  min-width: 360px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Title with brand styling */
+.biasxray-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.biasxray-title::before {
+  content: '🔍';
+  font-size: 1.2rem;
+}
+
+/* Score Row with improved layout */
+.biasxray-score-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Modern Score Pills */
+.biasxray-score-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.biasxray-score-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.biasxray-score-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.biasxray-score-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  min-width: 45px;
+}
+
+/* Color coding for scores */
+.biasxray-score-value[data-score="low"] {
+  color: #22c55e;
+}
+
+.biasxray-score-value[data-score="moderate"] {
+  color: #eab308;
+}
+
+.biasxray-score-value[data-score="high"] {
+  color: #f97316;
+}
+
+.biasxray-score-value[data-score="critical"] {
+  color: #ef4444;
+}
+
+/* Analysis Section */
+.biasxray-analysis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Modern Analysis Boxes */
+.biasxray-analysis-box {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1f2937;
+  border-radius: 16px;
+  padding: 20px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.biasxray-analysis-box:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.biasxray-analysis-box strong {
+  font-weight: 600;
+  color: #8B0000;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.biasxray-analysis-box em {
+  color: #4b5563;
+  font-style: normal;
+  font-weight: 500;
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.85rem;
+}
+
+/* Footer with better spacing */
+.biasxray-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Modern Button Styles */
+.biasxray-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: -0.01em;
+}
+
+.biasxray-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.biasxray-button-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.biasxray-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.biasxray-button-primary {
+  background: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.biasxray-button-primary:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Loading States */
+.biasxray-centered-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 20px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.biasxray-error-message {
+  color: #ef4444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Enhanced Spinner */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  #biasxray-overlay {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    min-width: auto;
+  }
+  
+  .biasxray-score-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .biasxray-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .biasxray-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  #biasxray-overlay {
+    background: rgba(23, 23, 23, 0.98);
+  }
+}
+
+/* Custom Scrollbar for Overlay */
+#biasxray-overlay::-webkit-scrollbar {
+  width: 8px;
+}
+
+#biasxray-overlay::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+#biasxray-overlay::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+#biasxray-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  #biasxray-overlay {
+    animation: none;
+  }
+  
+  .biasxray-score-pill,
+  .biasxray-analysis-box,
+  .biasxray-button {
+    transition: none;
+  }
+  
+  .spinner {
+    animation: none;
+  }
+}
